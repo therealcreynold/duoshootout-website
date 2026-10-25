@@ -1,0 +1,203 @@
+/* Duo Shootout: the whole site's styles.
+
+   One file for both pages. There is no game art yet, so there is no picture anywhere: the look is
+   the family's arcade cabinet drawn in CSS, lit for a night match. A navy cabinet, a row of
+   floodlights, the name in neon (DUO in the family's cyan, SHOOTOUT in pitch green), and a strip of
+   mown turf with a chalk line along the bottom of the machine.
+
+   Two kinds of surface, on purpose:
+   - THE MACHINE. The cabinet and the 404's bar are a dark object whatever the reader's setting, as
+     an arcade cabinet is. Their colours are fixed, never themed.
+   - THE PAGE. Everything else follows the reader's light or dark preference. Light is defined in
+     full on bare :root, so a browser that reports no preference still gets every colour; dark
+     redefines the same tokens.
+
+   Type is the system's, rounded for display, through local font stacks only. No web font is loaded,
+   no script runs anywhere on this site, and nothing here is fetched from anybody else. */
+
+:root {
+  --page:       #F3F6F1;
+  --page-2:     #E3EBDF;
+  --line:       rgba(16,32,42,.16);
+  --ink:        #10202A;
+  --ink-soft:   #45545E;
+  --head:       #10202A;
+  --accent:     #17703A;   /* pitch green at a weight that reads on chalk (5.0:1) */
+  --link:       #136332;
+  --link-hover: #10202A;
+
+  /* The machine. Never redefined below. */
+  --cab:        #0A1420;
+  --cab-panel:  #12212E;
+  --cab-edge:   #1E3442;
+  --cab-ink:    #F2F6F4;
+  --cab-soft:   #B7C6CC;
+  --neon:       #2EE6FF;
+  --pitch:      #4DFF7C;
+  --flood:      #EAF4FF;
+  --turf-a:     #1D7136;
+  --turf-b:     #23843F;
+  --chalk:      #F4F7F2;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page:       #0A1420;
+    --page-2:     #0D1A26;
+    --line:       rgba(77,255,124,.18);
+    --ink:        #EEF3F0;
+    --ink-soft:   #AFBDC2;
+    --head:       #EEF3F0;
+    --accent:     #4DFF7C;
+    --link:       #8CFFAE;
+    --link-hover: #2EE6FF;
+  }
+}
+
+/* ---- Furniture ---------------------------------------------------------------------- */
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  font: 17px/1.65 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto,
+        system-ui, sans-serif;
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--page), var(--page-2));
+  background-color: var(--page);
+  /* A long address in running text must never push a phone into sideways scrolling. */
+  overflow-wrap: break-word;
+}
+main { flex: 1 0 auto; }
+
+h1, .brand, .pill {
+  font-family: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Segoe UI",
+               system-ui, sans-serif;
+}
+
+a { color: var(--link); text-decoration-thickness: .07em; text-underline-offset: .18em; }
+a:hover { color: var(--link-hover); }
+:focus-visible { outline: 3px solid var(--neon); outline-offset: 3px; border-radius: 4px; }
+
+/* One gutter rule for the whole site: side padding lives here and nowhere else. */
+.wrap { width: 100%; max-width: 980px; margin: 0 auto; padding-inline: 24px; }
+.wrap.narrow { max-width: 740px; }
+
+/* ---- The machine ------------------------------------------------------------------------ */
+
+/* A row of floodlights, drawn with gradients rather than an image. Static: a page has no business
+   animating. */
+.lights {
+  height: 18px;
+  background:
+    radial-gradient(circle at 14px 9px, #FFFFFF 0 2px, var(--flood) 3px,
+                    rgba(234,244,255,.30) 5px, transparent 8px) 0 0 / 56px 18px repeat-x,
+    radial-gradient(circle at 42px 9px, #FFFFFF 0 2px, var(--flood) 3px,
+                    rgba(234,244,255,.30) 5px, transparent 8px) 0 0 / 56px 18px repeat-x,
+    var(--cab);
+}
+
+/* Mown turf with a chalk line along its top edge: the ground the machine stands on. */
+.ground {
+  height: 22px;
+  background:
+    linear-gradient(180deg, var(--chalk) 0 3px, transparent 3px),
+    repeating-linear-gradient(90deg, var(--turf-a) 0 56px, var(--turf-b) 56px 112px);
+  box-shadow: 0 2px 0 rgba(0,0,0,.25);
+}
+.ground.thin { height: 10px; }
+
+.cabinet {
+  color: var(--cab-ink);
+  background:
+    radial-gradient(70% 60% at 50% 0%, rgba(234,244,255,.10), transparent 70%),
+    radial-gradient(60% 70% at 50% 100%, rgba(77,255,124,.10), transparent 70%),
+    linear-gradient(180deg, var(--cab-panel), var(--cab) 75%);
+  border-bottom: 1px solid var(--cab-edge);
+}
+.marquee {
+  text-align: center;
+  padding-block: clamp(48px, 10vw, 104px);
+}
+
+/* The name as the cabinet's neon sign. */
+.sign {
+  margin: 0;
+  font-size: clamp(40px, 10.5vw, 88px); font-weight: 900; line-height: 1.02; letter-spacing: .015em;
+  text-transform: uppercase;
+}
+.duo {
+  color: var(--neon);
+  text-shadow: 0 0 3px #C8F8FF, 0 0 14px rgba(46,230,255,.85), 0 0 38px rgba(46,230,255,.5);
+}
+.word {
+  color: var(--pitch);
+  text-shadow: 0 0 3px #CFFFDC, 0 0 14px rgba(77,255,124,.8), 0 0 38px rgba(40,220,100,.5);
+}
+
+.lede {
+  margin: 26px auto 0; max-width: 44ch;
+  font-size: clamp(17px, 2.6vw, 20px); color: var(--cab-soft);
+}
+.lede strong { color: var(--cab-ink); }
+
+.pill {
+  display: inline-block; margin: 28px 0 0; padding: 9px 18px;
+  border: 1px solid rgba(46,230,255,.55); border-radius: 999px;
+  background: rgba(46,230,255,.08);
+  font-size: 15px; font-weight: 700; letter-spacing: .02em; color: var(--neon);
+}
+.status { margin: 16px 0 0; font-size: 18px; }
+.status b { color: var(--flood); }
+
+/* ---- The page ----------------------------------------------------------------------------- */
+
+.note { padding-block: 36px 8px; text-align: center; }
+.note p { margin: 0; color: var(--ink-soft); }
+
+/* The 404's bar: the machine's sign, small. */
+.bar { padding-block: 14px; background: var(--cab); }
+.brand {
+  font-size: 19px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+  text-decoration: none;
+}
+.brand .duo, .brand .word { text-shadow: none; }
+.brand:hover .word { text-decoration: underline; }
+
+main.doc { padding-block: 40px 12px; }
+main.doc h1 { margin: 0 0 6px; font-size: clamp(30px, 6.4vw, 42px); font-weight: 900;
+              letter-spacing: -.02em; color: var(--head); }
+main.doc .updated { margin: 0 0 22px; font-size: 15px; color: var(--accent); font-weight: 600; }
+main.doc p { color: var(--ink-soft); }
+
+/* ---- Footer ------------------------------------------------------------------------------ */
+
+footer {
+  margin-top: 32px; padding-block: 24px 48px;
+  border-top: 1px solid var(--line);
+  font-size: 14.5px; color: var(--ink-soft); text-align: center;
+}
+footer p { margin: 0; }
+
+/* ---- Narrow screens ----------------------------------------------------------------------- */
+
+@media (max-width: 480px) {
+  body { font-size: 16px; }
+  .wrap { padding-inline: 16px; }
+}
+
+/* Reduce Motion: nothing on this site animates, and this keeps it that way if something is added. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,7 @@
+# duoshootout.com
+#
+# One page, meant to be found. Keep it crawlable: when the game ships, this domain becomes the App
+# Store listing's Marketing URL, and advertising networks will crawl /app-ads.txt from here.
+
+User-agent: *
+Allow: /

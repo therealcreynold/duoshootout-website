@@ -1,0 +1,19 @@
+# What GitHub Pages is allowed to publish.
+#
+# GitHub Pages deploys every file in a repository by default, so a README, a note to self or a
+# script committed here is a public page the moment it is pushed. `.nojekyll` is not the answer and
+# cannot be: with Jekyll off there is no ignore list at all. So Jekyll is on and told to publish
+# nothing but the site. That is safe for these pages: Jekyll renders only files carrying YAML front
+# matter, and both pages begin with `<!doctype html>` with no front matter, so they are copied byte
+# for byte. scripts/lint-site.py fails on front matter or a Liquid tag opener, so that stays true.
+#
+# `scripts` holds the lint, the page photographer and the live checks. None of it is the site.
+#
+# ANYTHING ADDED TO THIS REPOSITORY IS PUBLIC THE MOMENT IT IS PUSHED UNLESS IT IS NAMED HERE. Add
+# it here first, and re-run scripts/check-live.sh after any change to this file: an excluded page
+# and a broken page look identical from a terminal.
+exclude:
+  - scripts
+  - README.md
+
+# Nothing else. No theme, no plugin, no layout. Every page is hand-written HTML.
