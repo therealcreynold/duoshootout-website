@@ -21,7 +21,7 @@ nothing fetched from another host: every file here is the file that gets served.
 ## What the page says, and why only that
 
 **Every sentence is true today.** The game does not exist yet, so the page says what it is going to be
-and nothing it does: the first sentence is the brief's premise (`02-KEEPER-GAME.md`, section 1:
+and claims nothing it does: the first sentence is the brief's premise (`02-KEEPER-GAME.md`, section 1:
 penalty kicks, a goalkeeper, the goal standing up on the raised half, the shot crossing the fold), and
 "Coming to the App Store." is the only word about availability. There is no feature list, no date, no
 screenshot, no icon (none has been drawn) and no privacy page (there is no app to describe, and the page
@@ -104,7 +104,12 @@ Read what is there before changing anything:
 
 ## How it was set up
 
-In order, which is also how to rebuild it:
+**DONE 25 October 2026, and live over HTTPS.** The repository `therealcreynold/duoshootout-website` was
+created public and pushed; Pages was enabled from `main` at the root with the custom domain
+`duoshootout.com`; the nine DNS records were set at Namecheap the same day; GitHub's certificate reached
+`approved` (covering `duoshootout.com` and `www.duoshootout.com`) within minutes and `https_enforced` was
+set; `scripts/check-live.sh` then printed 16 PASS and "clean". The steps stay because they are how the
+site gets rebuilt. Read what is there before redoing anything. In order:
 
 1. **The repository** `therealcreynold/duoshootout-website`, **public** (GitHub Pages on a free account
    serves only public repositories), created empty and pushed from `main`.
