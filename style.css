@@ -25,6 +25,7 @@
   --accent:     #17703A;   /* pitch green at a weight that reads on chalk (5.0:1) */
   --link:       #136332;
   --link-hover: #10202A;
+  --focus:      #136332;   /* the keyboard focus ring on the page: 6.0:1 (the neon is 1.2:1 on chalk) */
 
   /* The machine. Never redefined below. */
   --cab:        #0A1420;
@@ -53,6 +54,7 @@
     --accent:     #4DFF7C;
     --link:       #8CFFAE;
     --link-hover: #2EE6FF;
+    --focus:      #2EE6FF;
   }
 }
 
@@ -83,7 +85,9 @@ h1, .brand, .pill {
 
 a { color: var(--link); text-decoration-thickness: .07em; text-underline-offset: .18em; }
 a:hover { color: var(--link-hover); }
-:focus-visible { outline: 3px solid var(--neon); outline-offset: 3px; border-radius: 4px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+/* The machine is dark whatever the setting, so a focus ring on it is always the neon. */
+.bar :focus-visible, .cabinet :focus-visible { outline-color: var(--neon); }
 
 /* One gutter rule for the whole site: side padding lives here and nowhere else. */
 .wrap { width: 100%; max-width: 980px; margin: 0 auto; padding-inline: 24px; }
